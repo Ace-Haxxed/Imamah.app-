@@ -1,0 +1,73 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 45 40% 90%;
+    --card: 0 0% 7%;
+    --card-foreground: 45 40% 90%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 45 40% 90%;
+    --primary: 39 65% 47%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 45 40% 90%;
+    --muted: 0 0% 9%;
+    --muted-foreground: 39 10% 49%;
+    --accent: 39 65% 47%;
+    --accent-foreground: 0 0% 4%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 39 65% 47% / 0.22;
+    --input: 39 65% 47% / 0.22;
+    --ring: 39 65% 47%;
+    --radius: 0rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-headline;
+  }
+  input, textarea, select, button {
+    @apply font-body;
+  }
+}
+
+.gold-glow {
+  background: radial-gradient(circle at center, rgba(201, 146, 42, 0.12) 0%, transparent 70%);
+}
+
+.luxury-card {
+  @apply bg-card border border-border transition-all duration-300;
+}
+
+.luxury-card:hover {
+  @apply bg-[#181818] -translate-y-[2px];
+  border-color: rgba(201, 146, 42, 0.5);
+}
+
+.btn-luxury {
+  @apply border border-primary text-primary px-6 py-2 transition-all duration-300 bg-transparent uppercase tracking-widest text-xs font-semibold;
+}
+
+.btn-luxury:hover {
+  @apply bg-primary text-background;
+}
+
+.header-blur {
+  @apply sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border;
+}
+
+.tab-luxury {
+  @apply pb-3 text-xs uppercase tracking-widest font-bold text-muted-foreground border-b-2 border-transparent rounded-none transition-colors hover:text-foreground data-[state=active]:border-primary data-[state=active]:text-primary bg-transparent;
+}

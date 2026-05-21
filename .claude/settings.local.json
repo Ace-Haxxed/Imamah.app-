@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Hp\\\\Downloads\\\\Imamah-Sports-Best\" -Recurse -Force)",
+      "Bash(Select-Object FullName)",
+      "Bash(Sort-Object FullName)",
+      "Bash(Format-Table -AutoSize)",
+      "Bash(find \"C:\\\\\\\\Users\\\\\\\\Hp\\\\\\\\Downloads\\\\\\\\Imamah-Sports-Best\" -type f -o -type d)",
+      "Bash(find \"C:\\\\\\\\Users\\\\\\\\Hp\\\\\\\\Downloads\\\\\\\\Imamah-Sports-Best\" -type f)",
+      "Bash(find C:\\\\\\\\Users\\\\\\\\Hp\\\\\\\\Downloads\\\\\\\\Imamah-Sports-Best *)",
+      "Bash(ls -la \"C:\\\\\\\\Users\\\\\\\\Hp\\\\\\\\Downloads\\\\\\\\Imamah-Sports-Best\\\\\\\\\")",
+      "Bash(grep -E \"\\\\.\\(json|ts|js|yml|yaml|env|toml|config\\)$|next\\\\.|package\\\\.|tsconfig\\\\.|\\\\.github|\\\\.git\")",
+      "Bash(dir C:\\\\Users\\\\Hp\\\\Downloads\\\\Imamah-Sports-Best *)",
+      "Bash(gh --version)",
+      "Bash(git --version)",
+      "PowerShell(gh *)"
+    ]
+  }
+}
