@@ -13,7 +13,26 @@
       "Bash(dir C:\\\\Users\\\\Hp\\\\Downloads\\\\Imamah-Sports-Best *)",
       "Bash(gh --version)",
       "Bash(git --version)",
-      "PowerShell(gh *)"
+      "PowerShell(gh *)",
+      "PowerShell(winget *)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Hp\\\\AppData\\\\Local\\\\Microsoft\\\\WinGet\\\\\" -ErrorAction SilentlyContinue -Recurse | Where-Object {$_.Name -eq \"gh.exe\"} | Select-Object FullName)",
+      "PowerShell(Test-Path *)",
+      "PowerShell(gh repo *)",
+      "PowerShell(gh auth *)",
+      "PowerShell(Invoke-RestMethod \"https://api.github.com/repos/Ace-Haxxed/imamag-sports\" -ErrorAction SilentlyContinue | Select-Object html_url, private, created_at)",
+      "PowerShell(Invoke-RestMethod \"https://api.github.com/repos/Ace-Haxxed/Imamah.app-\" -ErrorAction SilentlyContinue | Select-Object html_url, private)",
+      "PowerShell(git fetch *)",
+      "PowerShell(Invoke-RestMethod \"https://api.github.com/repos/Ace-Haxxed/Imamah.app-\" | Select-Object html_url, description, visibility, pushed_at)",
+      "Bash(git config *)",
+      "Bash(Compress-Archive *)",
+      "Bash(npm install *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(npm run *)",
+      "Bash(rm src/ai/flows/generate-team-biography-flow.ts src/ai/genkit.ts src/ai/dev.ts)",
+      "Bash(rmdir src/ai/flows)",
+      "Bash(rmdir src/ai)"
     ]
   }
 }
