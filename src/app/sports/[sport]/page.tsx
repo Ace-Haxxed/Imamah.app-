@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/Header';
 import { StandingsTable } from '@/components/sports/StandingsTable';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import db from '@/lib/db';
+import { sql, ensureDb } from '@/lib/db';
 
 const SPORT_CONFIG = {
   soccer: { name: 'Soccer', emoji: '⚽', desc: 'The beautiful game, played by the Ummah.' },
@@ -17,8 +17,9 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
 
   if (!config) return <div>Sport not found</div>;
 
-  const standings = db.prepare('SELECT * FROM standings WHERE sport = ? ORDER BY points DESC, gd DESC').all(sport) as any[];
-  const approvedTeams = db.prepare('SELECT * FROM team_registrations WHERE sport = ? AND status = ?').all(sport, 'approved') as any[];
+  await ensureDb();
+  const { rows: standings } = await sql`SELECT * FROM standings WHERE sport = ${sport} ORDER BY points DESC, gd DESC`;
+  const { rows: approvedTeams } = await sql`SELECT * FROM team_registrations WHERE sport = ${sport} AND status = 'approved'`;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
