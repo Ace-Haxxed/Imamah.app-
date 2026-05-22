@@ -26,26 +26,26 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
       <Header />
       
       {/* Hero */}
-      <section className="relative pt-12 pb-24 border-b border-border overflow-hidden">
+      <section className="relative pt-8 pb-16 md:pt-12 md:pb-24 border-b border-border overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[300px] gold-glow opacity-30 pointer-events-none" />
-        <div className="container mx-auto px-6 relative z-10">
-          <Link href="/sports" className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground hover:text-primary mb-12 transition-colors">
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
+          <Link href="/sports" className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground hover:text-primary mb-8 md:mb-12 transition-colors">
             <ChevronLeft size={14} /> Back to All Sports
           </Link>
-          
-          <div className="flex items-end gap-6 mb-4">
-            <span className="text-5xl border border-primary/30 p-4 leading-none">{config.emoji}</span>
+
+          <div className="flex items-end gap-4 md:gap-6 mb-4">
+            <span className="text-4xl md:text-5xl border border-primary/30 p-3 md:p-4 leading-none flex-shrink-0">{config.emoji}</span>
             <div>
-              <h1 className="text-6xl md:text-8xl font-headline font-black leading-none">{config.name}</h1>
+              <h1 className="text-4xl sm:text-6xl md:text-8xl font-headline font-black leading-none">{config.name}</h1>
             </div>
           </div>
-          <p className="max-w-xl text-muted-foreground italic text-lg">{config.desc}</p>
+          <p className="max-w-xl text-muted-foreground italic text-base md:text-lg">{config.desc}</p>
         </div>
       </section>
 
       {/* Standings */}
-      <section className="container mx-auto px-6 py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+      <section className="container mx-auto px-4 md:px-6 py-12 md:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-16">
           <div className="lg:col-span-2">
             <StandingsTable data={standings as any[]} />
           </div>
@@ -85,7 +85,7 @@ export default async function SportPage({ params }: { params: Promise<{ sport: s
         </div>
       </section>
 
-      <footer className="container mx-auto px-6 py-12 border-t border-border text-center">
+      <footer className="container mx-auto px-4 md:px-6 py-8 md:py-12 border-t border-border text-center">
         <p className="text-xs uppercase tracking-widest text-muted-foreground">
           &copy; 2025 Imamah Sports — Athletic Integrity
         </p>

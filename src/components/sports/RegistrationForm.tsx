@@ -58,14 +58,14 @@ export function RegistrationForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-5 md:space-y-8">
       {error && (
         <div className="bg-destructive/10 border border-destructive/20 text-destructive p-4 text-sm text-center">
           {error}
         </div>
       )}
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
         <div className="space-y-2">
           <Label className="uppercase text-[10px] tracking-widest text-muted-foreground" htmlFor="teamName">Team Name</Label>
           <Input name="teamName" id="teamName" required className="bg-background/50 border-primary/20 focus:border-primary" />
@@ -101,7 +101,7 @@ export function RegistrationForm() {
         <Textarea name="about" id="about" className="bg-background/50 border-primary/20 min-h-[120px]" placeholder="Share your club's history and philosophy..." />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-border pt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 border-t border-border pt-6 md:pt-8">
         <div className="space-y-2">
           <Label className="uppercase text-[10px] tracking-widest text-muted-foreground" htmlFor="contactName">Contact Name</Label>
           <Input name="contactName" id="contactName" required className="bg-background/50 border-primary/20" />

@@ -35,14 +35,14 @@ export function StandingsTable({ data, leagueName = "Imamah League — 2025/26" 
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-card/50 border-b border-border">
-              <th className="py-4 px-4 text-left text-[10px] font-bold uppercase tracking-widest text-muted-foreground w-12">Pos</th>
-              <th className="py-4 px-4 text-left text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Team</th>
-              <th className="py-4 px-2 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground hidden md:table-cell">P</th>
-              <th className="py-4 px-2 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground hidden md:table-cell">W</th>
-              <th className="py-4 px-2 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground hidden md:table-cell">D</th>
-              <th className="py-4 px-2 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground hidden md:table-cell">L</th>
-              <th className="py-4 px-2 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground">GD</th>
-              <th className="py-4 px-4 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground w-16">Pts</th>
+              <th className="py-3 px-3 md:py-4 md:px-4 text-left text-[10px] font-bold uppercase tracking-widest text-muted-foreground w-10 md:w-12">Pos</th>
+              <th className="py-3 px-3 md:py-4 md:px-4 text-left text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Team</th>
+              <th className="py-3 px-2 md:py-4 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground hidden md:table-cell">P</th>
+              <th className="py-3 px-2 md:py-4 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground hidden md:table-cell">W</th>
+              <th className="py-3 px-2 md:py-4 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground hidden md:table-cell">D</th>
+              <th className="py-3 px-2 md:py-4 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground hidden md:table-cell">L</th>
+              <th className="py-3 px-2 md:py-4 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground">GD</th>
+              <th className="py-3 px-3 md:py-4 md:px-4 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground w-12 md:w-16">Pts</th>
             </tr>
           </thead>
           <tbody>
@@ -62,17 +62,17 @@ export function StandingsTable({ data, leagueName = "Imamah League — 2025/26" 
                     !isPromotion && !isRelegation && isReal && "border-l-4 border-l-transparent"
                   )}
                 >
-                  <td className="py-4 px-4 text-sm font-medium">{idx + 1}</td>
-                  <td className="py-4 px-4">
-                    <div className="flex items-center gap-4">
+                  <td className="py-3 px-3 md:py-4 md:px-4 text-sm font-medium">{idx + 1}</td>
+                  <td className="py-3 px-3 md:py-4 md:px-4">
+                    <div className="flex items-center gap-2 md:gap-4">
                       {isReal ? (
                         <>
-                          <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-[10px] font-bold text-primary">
+                          <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-[10px] font-bold text-primary flex-shrink-0">
                             {getInitials(row.team_name)}
                           </div>
                           <div>
                             <div className="text-sm font-bold">{row.team_name}</div>
-                            <div className="text-[10px] text-muted-foreground uppercase tracking-tight">{row.city}</div>
+                            <div className="text-[10px] text-muted-foreground uppercase tracking-tight hidden sm:block">{row.city}</div>
                           </div>
                         </>
                       ) : (
@@ -80,17 +80,17 @@ export function StandingsTable({ data, leagueName = "Imamah League — 2025/26" 
                       )}
                     </div>
                   </td>
-                  <td className="py-4 px-2 text-center text-sm hidden md:table-cell">{isReal ? row.played : 0}</td>
-                  <td className="py-4 px-2 text-center text-sm hidden md:table-cell">{isReal ? row.won : 0}</td>
-                  <td className="py-4 px-2 text-center text-sm hidden md:table-cell">{isReal ? row.drawn : 0}</td>
-                  <td className="py-4 px-2 text-center text-sm hidden md:table-cell">{isReal ? row.lost : 0}</td>
+                  <td className="py-3 px-2 md:py-4 text-center text-sm hidden md:table-cell">{isReal ? row.played : 0}</td>
+                  <td className="py-3 px-2 md:py-4 text-center text-sm hidden md:table-cell">{isReal ? row.won : 0}</td>
+                  <td className="py-3 px-2 md:py-4 text-center text-sm hidden md:table-cell">{isReal ? row.drawn : 0}</td>
+                  <td className="py-3 px-2 md:py-4 text-center text-sm hidden md:table-cell">{isReal ? row.lost : 0}</td>
                   <td className={cn(
-                    "py-4 px-2 text-center text-sm font-medium",
+                    "py-3 px-2 md:py-4 text-center text-sm font-medium",
                     isReal && row.gd > 0 ? "text-green-500" : isReal && row.gd < 0 ? "text-red-500" : "text-muted-foreground"
                   )}>
                     {isReal ? (row.gd > 0 ? `+${row.gd}` : row.gd) : 0}
                   </td>
-                  <td className="py-4 px-4 text-center text-sm font-black text-primary">
+                  <td className="py-3 px-3 md:py-4 md:px-4 text-center text-sm font-black text-primary">
                     {isReal ? row.points : 0}
                   </td>
                 </tr>
