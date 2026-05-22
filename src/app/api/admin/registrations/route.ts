@@ -1,6 +1,5 @@
-
 import { NextResponse } from 'next/server';
-import db from '@/lib/db';
+import { sql, ensureDb } from '@/lib/db';
 
 const ADMIN_PASSWORD = 'JoseGonzales';
 
@@ -10,15 +9,23 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const { searchParams } = new URL(req.url);
-  const status = searchParams.get('status');
+  try {
+    await ensureDb();
+    const { searchParams } = new URL(req.url);
+    const status = searchParams.get('status');
 
-  let registrations;
-  if (status) {
-    registrations = db.prepare('SELECT * FROM team_registrations WHERE status = ? ORDER BY submitted_at DESC').all(status);
-  } else {
-    registrations = db.prepare('SELECT * FROM team_registrations ORDER BY submitted_at DESC').all();
+    let registrations;
+    if (status) {
+      const result = await sql`SELECT * FROM team_registrations WHERE status = ${status} ORDER BY submitted_at DESC`;
+      registrations = result.rows;
+    } else {
+      const result = await sql`SELECT * FROM team_registrations ORDER BY submitted_at DESC`;
+      registrations = result.rows;
+    }
+
+    return NextResponse.json(registrations);
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: 'Database error' }, { status: 500 });
   }
-
-  return NextResponse.json(registrations);
 }

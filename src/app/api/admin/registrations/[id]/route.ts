@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import db from '@/lib/db';
+import { sql, ensureDb } from '@/lib/db';
 
 const ADMIN_PASSWORD = 'JoseGonzales';
 
@@ -9,44 +9,41 @@ export async function PATCH(
 ) {
   const { id } = await params;
   const password = req.headers.get('x-admin-password');
-  
+
   if (password !== ADMIN_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
+    await ensureDb();
     const { status } = await req.json();
     const reviewedAt = new Date().toISOString();
 
-    // Get current record to check for status transitions
-    const currentTeam = db.prepare('SELECT * FROM team_registrations WHERE id = ?').get(id) as any;
-    
+    const { rows: teamRows } = await sql`SELECT * FROM team_registrations WHERE id = ${id}`;
+    const currentTeam = teamRows[0];
+
     if (!currentTeam) {
       return NextResponse.json({ error: 'Registration not found' }, { status: 404 });
     }
 
-    // Update registration status
-    const updateStmt = db.prepare(`
-      UPDATE team_registrations 
-      SET status = ?, reviewed_at = ?
-      WHERE id = ?
-    `);
-    updateStmt.run(status, reviewedAt, id);
+    await sql`
+      UPDATE team_registrations
+      SET status = ${status}, reviewed_at = ${reviewedAt}
+      WHERE id = ${id}
+    `;
 
-    // Robust sync with standings
     if (status === 'approved') {
-      // Ensure the team is in the standings
-      const existing = db.prepare('SELECT id FROM standings WHERE team_name = ? AND sport = ?').get(currentTeam.team_name, currentTeam.sport);
-      if (!existing) {
-        const insertStanding = db.prepare(`
+      const { rows: existingRows } = await sql`
+        SELECT id FROM standings WHERE team_name = ${currentTeam.team_name} AND sport = ${currentTeam.sport}
+      `;
+      if (existingRows.length === 0) {
+        await sql`
           INSERT INTO standings (sport, team_name, city)
-          VALUES (?, ?, ?)
-        `);
-        insertStanding.run(currentTeam.sport, currentTeam.team_name, currentTeam.city);
+          VALUES (${currentTeam.sport}, ${currentTeam.team_name}, ${currentTeam.city})
+        `;
       }
     } else {
-      // For ANY other status (pending, rejected), ensure they are NOT in the standings
-      db.prepare('DELETE FROM standings WHERE team_name = ? AND sport = ?').run(currentTeam.team_name, currentTeam.sport);
+      await sql`DELETE FROM standings WHERE team_name = ${currentTeam.team_name} AND sport = ${currentTeam.sport}`;
     }
 
     return NextResponse.json({ success: true });
@@ -68,13 +65,13 @@ export async function DELETE(
   }
 
   try {
-    const team = db.prepare('SELECT * FROM team_registrations WHERE id = ?').get(id) as any;
-    
+    await ensureDb();
+    const { rows: teamRows } = await sql`SELECT * FROM team_registrations WHERE id = ${id}`;
+    const team = teamRows[0];
+
     if (team) {
-      // Remove from standings
-      db.prepare('DELETE FROM standings WHERE team_name = ? AND sport = ?').run(team.team_name, team.sport);
-      // Remove registration
-      db.prepare('DELETE FROM team_registrations WHERE id = ?').run(id);
+      await sql`DELETE FROM standings WHERE team_name = ${team.team_name} AND sport = ${team.sport}`;
+      await sql`DELETE FROM team_registrations WHERE id = ${id}`;
     }
 
     return NextResponse.json({ success: true });
